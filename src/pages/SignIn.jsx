@@ -2,8 +2,10 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
-import { getAuth, signInWithEmailAndPassword } from 'firebase/auth'
-import  {toast} from 'react-toastify';
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { toast } from "react-toastify";
+import OAuth from '../components/OAuth'
+import OAuthM from '../components/OAuthM'
 
 function SignIn() {
   const [showPassword, setShowPassword] = useState(false);
@@ -89,8 +91,9 @@ function SignIn() {
             </button>
           </div>
         </form>
-{/* 
-      <OAuth /> */}
+
+        <OAuth />
+        {/* <OAuthM /> */}
 
         <Link to="/sign-up" className="registerLink">
           Sign Up Instead

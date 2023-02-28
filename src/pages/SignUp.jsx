@@ -2,11 +2,16 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { ReactComponent as ArrowRightIcon } from "../assets/svg/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/svg/visibilityIcon.svg";
-import {getAuth, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import {
+  getAuth,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { db } from "../firebase.config";
-import { setDoc, doc, serverTimestamp } from 'firebase/firestore'
-import  {toast} from 'react-toastify';
-
+import { setDoc, doc, serverTimestamp } from "firebase/firestore";
+import { toast } from "react-toastify";
+import OAuth from "../components/OAuth";
+import OAuthM from '../components/OAuthM'
 
 function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -38,19 +43,18 @@ function SignUp() {
         password
       );
 
-      const user= userCredential.user
-      updateProfile(auth.currentUser,{
-        displayName: name
-      })
+      const user = userCredential.user;
+      updateProfile(auth.currentUser, {
+        displayName: name,
+      });
 
-      const formDataCopy = { ...formData }
-      delete formDataCopy.password
-      formDataCopy.timestamp = serverTimestamp()
+      const formDataCopy = { ...formData };
+      delete formDataCopy.password;
+      formDataCopy.timestamp = serverTimestamp();
 
-      await setDoc(doc(db, 'users', user.uid), formDataCopy)
+      await setDoc(doc(db, "users", user.uid), formDataCopy);
 
-      navigate('/')
-
+      navigate("/");
     } catch (error) {
       toast.error("Something went Wrong");
     }
@@ -100,6 +104,7 @@ function SignUp() {
             />
           </div>
 
+          <OAuth />
           <Link to="/forgot-password" className="forgotPasswordLink">
             Forgot Password
           </Link>
@@ -111,8 +116,9 @@ function SignUp() {
             </button>
           </div>
         </form>
-        {/* 
-      <OAuth /> */}
+        
+      <OAuth /> 
+      <OAuthM /> 
 
         <Link to="/sign-in" className="registerLink">
           Sign In Instead
